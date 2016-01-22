@@ -875,6 +875,8 @@ c
       tscale = pi/tmax 
       do jvi = 1,nvi
          t(jvi) = ((jvi*tscale)**2-0.25d0)/rho**2
+         ! the extra factor of 0.25/rho**2 accounts for a diagonal constant
+         ! factor in the coupling matrix 
       enddo
       do jvi = 0,2*nvi
          c(jvi) = 0.d0
