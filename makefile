@@ -1,12 +1,14 @@
+FFLAGS = -fno-sign-zero
+
 abc : lin.o abc.o pot.o fun.o
-	gfortran abc.o fun.o lin.o pot.o -o abc.x -lblas -llapack
+	gfortran  abc.o fun.o lin.o pot.o -o abc.x -lblas -llapack
 lin.o : 
-	gfortran -c lin.f
+	gfortran -c $(FFLAGS) lin.f
 pot.o : 
-	gfortran -c pot.f
+	gfortran -c $(FFLAGS) pot.f
 fun.o : 
-	gfortran -c fun.f
+	gfortran -c $(FFLAGS) fun.f
 abc.o : 
-	gfortran -c abc.f
+	gfortran -c $(FFLAGS) abc.f
 clean:
 	    rm *.o 
