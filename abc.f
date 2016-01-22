@@ -840,6 +840,10 @@ c
 c     ----------------------------------------------------------------- 
 c     This subroutine constructs a multiple-arrangement 
 c     hyperspherical basis set at hyperradius rho.
+c     
+c     Args:
+c     mode - 0 for surface functions
+c            1 for conversion to asymptotic basis including J(J+1) terms.
 c     ----------------------------------------------------------------- 
 c
 c     common blocks
