@@ -1,20 +1,20 @@
 c     fun.f
-c     ----------------------------------------------------------------- 
-c     Special function subroutines for CCP6 hyperspherical 
+c     -----------------------------------------------------------------
+c     Special function subroutines for CCP6 hyperspherical
 c     coordinate reactive scattering program ABC.
-c     This version with translations of Temme's Bessel 
+c     This version with translations of Temme's Bessel
 c     function routines dated 31 March 2000.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       function rotmel (jtot,ipar,k,m,beta)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This function uses redrot to calculate a parity adapted reduced 
+c     -----------------------------------------------------------------
+c     This function uses redrot to calculate a parity adapted reduced
 c     rotation matrix element with angular momentum jtot, parity ipar,
 c     angular momentum projections k and m, and argument beta.
-c     ----------------------------------------------------------------- 
-c     
+c     -----------------------------------------------------------------
+c
       rotmel = 0.d0
       if (k.gt.jtot .or. k.lt.0) return
       if (m.gt.jtot .or. m.lt.0) return
@@ -31,12 +31,12 @@ c
       function redrot (rj,rk,rm,beta)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This function uses eq. (4.1.23) of Edmonds 
-c     to calculate the reduced rotation matrix element 
+c     -----------------------------------------------------------------
+c     This function uses eq. (4.1.23) of Edmonds
+c     to calculate the reduced rotation matrix element
 c     d(j,k,m;beta) = <jk|exp(+i*beta*Jy/hbar)|jm>.
-c     ----------------------------------------------------------------- 
-c     
+c     -----------------------------------------------------------------
+c
       parameter (zero = 0.0d0)
       parameter (half = 0.5d0)
       parameter (one  = 1.0d0)
@@ -54,10 +54,10 @@ c
       if (sk.gt.sj .or. sk.lt.-sj)  return
       if (sm.gt.sj .or. sm.lt.-sj)  return
       if (mod(sj-sk,one) .ne. zero) return
-      if (mod(sj-sm,one) .ne. zero) return      
+      if (mod(sj-sm,one) .ne. zero) return
 c
 c     reflection symmetries
-c      
+c
       if (sk+sm .ge. zero) then
         if (sk-sm .ge. zero) then
           tk = sk
@@ -109,10 +109,10 @@ c
       function pjacob (n,a,b,x)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Jacobi polynomial p(n,a,b;x)
 c     Abramowitz and Stegun eq. (22.7.1)
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       parameter (zero = 0.0d0)
       parameter (half = 0.5d0)
@@ -134,7 +134,7 @@ c
         fp = half*(amb+apbp2*x)
         do k = 1,n-1
           onek = onek+one
-          twok = twok+two 
+          twok = twok+two
           a1 = (twok+two)*(onek+apbp1)*(twok+apb)
           a2 = (twok+apbp1)*apbamb
           a3 = (twok+apb)*(twok+apbp1)*(twok+apbp2)
@@ -151,17 +151,17 @@ c
       subroutine rbesjy (ell,x,cj,dj,ej,cy,dy,ey)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     Riccati-Bessel functions of fractional order  
+c     -----------------------------------------------------------------
+c     Riccati-Bessel functions of fractional order
 c     and their first derivatives with respect to x:
 c
 c     j(ell,x) = cj * exp(ej)
 c     y(ell,x) = cy * exp(ey)
 c     d/dx j(ell,x) = dj * exp(ej)
 c     d/dx y(ell,x) = dy * exp(ey)
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
-      if (x.le.0.0d0 .or. ell.lt.-0.5d0) stop 'rbesjy 0'       
+      if (x.le.0.0d0 .or. ell.lt.-0.5d0) stop 'rbesjy 0'
       v = ell+0.5d0
       call bessjy (v,x,cj,dj,ej,cy,dy,ey)
       pi = acos(-1.d0)
@@ -182,15 +182,15 @@ c
       subroutine rbessk (ell,x,ck,dk,ek)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Modified Riccati-Bessel function of the third kind
 c     and its first derivative with respect to x:
 c
 c     k(ell,x) = ck * exp(ek)
 c     d/dx k(ell,x) = dk * exp(ek)
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
-      if (x.le.0.0d0 .or. ell.lt.-0.5d0) stop 'rbessk 0'       
+      if (x.le.0.0d0 .or. ell.lt.-0.5d0) stop 'rbessk 0'
       v = ell+0.5d0
       call mbessk (v,x,ck,dk,ek)
       pi = acos(-1.d0)
@@ -206,7 +206,7 @@ c
       subroutine bessjy (v,x,cj,dj,ej,cy,dy,ey)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine uses a combination of methods (mostly due
 c     to Temme) to calculate the Ordinary Bessel functions
 c
@@ -218,10 +218,10 @@ c
 c     d/dx J(v,x) = dj * exp(ej)
 c     d/dx Y(v,x) = dy * exp(ey)
 c
-c     for a given real order v >= 0 and real argument x > 0.  
+c     for a given real order v >= 0 and real argument x > 0.
 c     Note the exponential scaling, which is used to avoid
 c     overflow of Y(v,x) and underflow of J(v,x) for v >> x.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       parameter (eps = 1.d-15)! consistent with rgamma
       parameter (maxit = 1000)
@@ -237,7 +237,7 @@ c
       a = v-na
       if (x .lt. xmin) then
 c
-c        using Temme's series (bessya) for small x 
+c        using Temme's series (bessya) for small x
 c        [ N.M.Temme, J Comput Phys 21 (1976) 343-350 ]
 c
          b = x/2.d0
@@ -289,7 +289,7 @@ c
          g = -ya1/b
       else if (x.ge.xmin .and. x.lt.xmax) then
 c
-c        Temme's PQ method (besspqa) for intermediate x  
+c        Temme's PQ method (besspqa) for intermediate x
 c        [ N.M.Temme, J Comput Phys 21 (1976) 343-350 ]
 c
          c = 0.25d0-a*a
@@ -338,8 +338,8 @@ c
          f = d*(pa*s+qa*c)
          g = d*(qa1*s-pa1*c)
       else if (x .ge. xmax) then
-c 
-c        and Hankel's asymptotic expansions for large x           
+c
+c        and Hankel's asymptotic expansions for large x
 c        [ Abramowitz and Stegun, Section 9.2 ]
 c
          p = 0.d0
@@ -348,7 +348,7 @@ c
             pa = p
             qa = q
             y = 4.d0*(a+ia)**2
-            z = 8.d0*x 
+            z = 8.d0*x
             d = 0.d0
             w = -1.d0
             p = 1.d0
@@ -362,7 +362,7 @@ c
                d = d+z
                w = w+2.d0
                tp = -tq*(y-w*w)/d
-               p = p+tp   
+               p = p+tp
                if (abs(tp)+abs(tq) .lt. eps) go to 3
             enddo
             stop 'bessjy 3'
@@ -389,14 +389,14 @@ c
             h = y*(a+n)*g-f
             f = g
             g = h
-   4        if (abs(f) .gt. 4.d0) then 
+   4        if (abs(f) .gt. 4.d0) then
                p = p+1.d0
                f = 0.0625d0*f
                g = 0.0625d0*g
                go to 4
-            endif 
+            endif
          enddo
-      endif 
+      endif
       cy = f
       dy = (v/x)*f-g
       sy = sqrt(cy*cy+dy*dy)
@@ -475,15 +475,15 @@ c
    5     sj = sqrt(cj*cj+dj*dj)
          cj = cj/sj
          dj = dj/sj
-         ej = dlog(sj)-ey   
+         ej = dlog(sj)-ey
       endif
       return
-      end 
+      end
 
       subroutine mbessk (v,x,ck,dk,ek)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine uses Temme's method [ N.M.Temme, J Comput Phys
 c     19 (1975) 324-337 ] to calculate the Modified Bessel function
 c
@@ -493,10 +493,10 @@ c     and its first derivative with respect to x
 c
 c     d/dx K(v,x) = dk * exp(ek)
 c
-c     for a given real order v >= 0 and real argument x > 0.  
+c     for a given real order v >= 0 and real argument x > 0.
 c     Note the exponential scaling, which is used to avoid
 c     overflow of K(v,x) for v >> x and underflow for v << x.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       parameter (eps = 1.d-15)! consistent with rgamma
       parameter (maxit = 1000)
@@ -511,7 +511,7 @@ c
       a = v-na
       if (x .lt. xmin) then
 c
-c        using Temme's series for small x 
+c        using Temme's series for small x
 c
          b = x/2.d0
          d = -dlog(b)
@@ -555,7 +555,7 @@ c
          ex = 0.d0
       else if (x .ge. xmin) then
 c
-c        and Temme's PQ method for large x  
+c        and Temme's PQ method for large x
 c
          c = 0.25d0-a*a
          g = 1.d0
@@ -591,14 +591,14 @@ c
             h = y*(a+n)*g+f
             f = g
             g = h
-   3        if (abs(f) .gt. 4.d0) then 
+   3        if (abs(f) .gt. 4.d0) then
                p = p+1.d0
                f = 0.0625d0*f
                g = 0.0625d0*g
                go to 3
-            endif 
+            endif
          enddo
-      endif 
+      endif
       ck = f
       dk = (v/x)*f-g
       sk = sqrt(ck*ck+dk*dk)
@@ -611,11 +611,11 @@ c
       function rgamma(x,odd,even)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Direct fortran translation of Temme's algol routine for computing
 c     rgamma = 1/Gamma(1-x), along with its odd and even parts, for
 c     abs(x) .le. 0.5. [ N.M.Temme, J Comput Phys 19 (1975) 324-337 ]
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension b(12)
       data b / -0.283876542276024d0, -0.076852840844786d0,
@@ -623,11 +623,11 @@ c
      *         +0.000076309597586d0, -0.000004971736704d0,
      *         -0.000000865920800d0, -0.000000033126120d0,
      *         +0.000000001745136d0, +0.000000000242310d0,
-     *         +0.000000000009161d0, -0.000000000000170d0 / 
+     *         +0.000000000009161d0, -0.000000000000170d0 /
       save b
 c
       x2 = x*x*8.d0
-      alfa = -0.000000000000001d0 
+      alfa = -0.000000000000001d0
       beta = 0.d0
       do i = 12,2,-2
          beta = -(2*alfa+beta)
@@ -643,4 +643,4 @@ c
       odd = 2*(alfa+beta)
       rgamma = odd*x+even
       return
-      end      
+      end

@@ -1,16 +1,16 @@
 c     lin.f
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Linear algebra routines for the CCP6 reactive scattering program.
 c     This version with LAPACK calls dated 31 March 2000.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       subroutine gensol (a,lda,n,b,ldb,m,ierr)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine uses LAPACK DGETRF and DGETRS to 
+c     -----------------------------------------------------------------
+c     This subroutine uses LAPACK DGETRF and DGETRS to
 c     solve the linear equations A*X = B.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension a(lda,n),b(ldb,m)
       dimension ipiv(n)
@@ -19,15 +19,15 @@ c
       if (ierr .ne. 0) return
       call dgetrs ('N',n,m,a,lda,ipiv,b,ldb,ierr)
       return
-      end 
- 
+      end
+
       subroutine syminv (a,lda,n,ierr)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine uses LAPACK DSYTRF and DSYTRI 
-c     to invert a real symmetric indefinite matrix. 
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
+c     This subroutine uses LAPACK DSYTRF and DSYTRI
+c     to invert a real symmetric indefinite matrix.
+c     -----------------------------------------------------------------
 c
       dimension a(lda,n)
       dimension ipiv(n),work(32*n)
@@ -47,10 +47,10 @@ c
       subroutine symevp (a,lda,n,d,ierr)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine uses LAPACK DSYEV to
 c     diagonalise a real symmetric matrix.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension a(lda,n),d(n)
       dimension work(34*n)
@@ -63,10 +63,10 @@ c
       subroutine rstevp (d,e,n,v,ldv,ierr)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine uses LAPACK DSTEV to diagonalise
 c     a real symmetric tridiagonal matrix.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension d(n),e(n),v(ldv,n)
       dimension work(2*n)

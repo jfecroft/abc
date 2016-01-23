@@ -1,23 +1,23 @@
 c     pot.f
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Potential energy surface subroutines for CCP6 hyperspherical
-c     coordinate reactive scattering program ABC. This version with 
+c     coordinate reactive scattering program ABC. This version with
 c     tried and tested H+H2, F+H2 and Cl+H2 surfaces dated 31/03/2000.
-c     ----------------------------------------------------------------- 
- 
+c     -----------------------------------------------------------------
+
       subroutine potsub (r,vev)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine chooses which potential to use on the basis 
+c     -----------------------------------------------------------------
+c     This subroutine chooses which potential to use on the basis
 c     of the atomic masses in common /masses/, and also ensures
 c     that the potential is called with the bond lengths in the
 c     correct order.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension r(3),s(3),m(3)
       double precision mass,mtot,mred
-      common /masses/ mass(3),mtot,mred 
+      common /masses/ mass(3),mtot,mred
 c
       imax = 1
       imin = 1
@@ -27,7 +27,7 @@ c
             imax = i
          else if (m(i) .lt. m(imin)) then
             imin = i
-         endif 
+         endif
       enddo
       if (imax .eq. imin) then
          imin = 1
@@ -61,7 +61,7 @@ c
       subroutine hh2pot (r,vev)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     LSTH H+H2 potential energy surface.
 c
 c     r(1) = H-H' distance in bohr
@@ -69,7 +69,7 @@ c     r(2) = H'-H" distance in bohr
 c     r(3) = H"-H distance in bohr
 c
 c     vev = potential in eV from bottom of asymptotic H+H2 valley.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension r(3)
 c
@@ -94,7 +94,7 @@ C
       SAVE NCALL
       DATA NCALL / 0 /
       IF (NCALL .EQ. 0) THEN
-         write (6,61) 
+         write (6,61)
          DO I = 1, 87
             RKW(I) = RKW(I)/CONV1
             EKW(I) = EKW(I)/(CONV2*CONV3)
@@ -103,7 +103,7 @@ C
          C6 = C6/(CONV2*CONV3*CONV1**6)
          C8 = C8/(CONV2*CONV3*CONV1**8)
          NCALL = 1
-      ENDIF 
+      ENDIF
       CALL LSTHPOT ( DIST, V )
       POTNTL = (V+0.174475D0)*CONV2
       RETURN
@@ -173,7 +173,7 @@ C
             I = I+1
          ENDDO
    1     CONTINUE
-      ENDIF 
+      ENDIF
       MI =(I-1)*IJ+1
       KI=MI+IJ
       FLK=X(I+1)-X(I)
@@ -270,7 +270,7 @@ C
       implicit double precision (a-h,o-z)
       integer b,c,d
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Stark-Werner F+H2 potential energy surface
 c
 c     r(1) = H-H distance in bohr
@@ -278,7 +278,7 @@ c     r(2) = F-H distance in bohr
 c     r(3) = H-F distance in bohr
 c
 c     vev = potential in eV from bottom of asymptotic F+H2 valley
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension r(3)
       parameter (nmx=200)
@@ -344,7 +344,7 @@ c
       subroutine clh2pt (r,vev)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Bian-Werner Cl+HD potential energy surface
 c
 c     r(1) = H-D distance in bohr
@@ -352,7 +352,7 @@ c     r(2) = D-Cl distance in bohr
 c     r(3) = H-Cl distance in bohr
 c
 c     vev = potential in eV from bottom of Cl+HD valley
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       parameter (VMAX = 50.d0)
       dimension r(3)
@@ -373,8 +373,8 @@ c-------------------------------------------------------------------
 c
 c     System:   ClH2
 c     Name:     BW4
-c     Author:  Wensheng Bian and Joachim Werner 
-c     Functional form: Aguado-Paniagua 
+c     Author:  Wensheng Bian and Joachim Werner
+c     Functional form: Aguado-Paniagua
 c     Energy Zero Point: the asymptote Cl+H2(re) in a.u.
 c
 c     This subroutine calculates the potential energy for the
@@ -383,14 +383,14 @@ c     **Scale fact=.948d0**
 c
 c            Cl + H2
 c
-c     Input are the three distances x,y,z 
+c     Input are the three distances x,y,z
 c         Cl    H1    H2
 c         |_____|
-c            x 
+c            x
 c               |_____|
 c                  y
 c         |___________|
-c               z 
+c               z
 c
 c-------------------------------------------------------------------
 c
@@ -398,7 +398,7 @@ c
       common/cparm/ a(nmx),ma
       common/cint/ ix(nmx),iy(nmx),iz(nmx),mmax
       dimension xex(0:mma),xey(0:mma),xez(0:mma)
-      dimension p(np) 
+      dimension p(np)
       save ifirst,p
       data ifirst/-1/
       data p/14.81794625, -0.05687046695,1.50963779,
@@ -418,7 +418,7 @@ c
          call bw4ini
          ifirst=0
       end if
-c 
+c
 c.... Three-Body-Potential : Aguado-Paniagua
 c
 c.... initialize the non-linear parameters
@@ -490,7 +490,7 @@ c
       end
 
 c------------------------------------------------------------------------
-      subroutine bw4ini 
+      subroutine bw4ini
       implicit double precision (a-h,o-z)
       parameter(nmx=600)
       common/cparm/ a(nmx),ma
