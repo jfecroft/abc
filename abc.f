@@ -1,10 +1,10 @@
       program abc
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     CCP6 hyperspherical coordinate reactive scattering program ABC.
 c     This version dated 31 March 2000.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -95,17 +95,17 @@ c     calculation
 c
       if (kmin .gt. kmax) stop 'abc 2'
       call parset
-      call driver 
+      call driver
       stop
       end
 
-      subroutine parset 
+      subroutine parset
       implicit double precision (a-h,o-z)
 c
 c     -----------------------------------------------------------------
-c     This subroutine uses the input parameters emax and jmax 
+c     This subroutine uses the input parameters emax and jmax
 c     to determine rmin, smax, mvi, mro, and nvi.
-c     -----------------------------------------------------------------   
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -176,13 +176,13 @@ c
 c
 c     nvi
 c
-      nvi = 0            
+      nvi = 0
       range = 2.d0*smax/pi
       do ia = 1,3
          if (ered .gt. vmid(ia)) then
             wave = sqrt(ered-vmid(ia))
             nvia = range*wave
-            nvi = max(nvi,nvia)    
+            nvi = max(nvi,nvia)
          endif
       enddo
 c
@@ -197,19 +197,19 @@ c
       if (rmin .ge. rmax) stop 'parset 1'
       return
   61  format(/1x,'PARSET:'/1x,70('-')/1x,
-     +'  rmin = ',f32.2/1x, 
+     +'  rmin = ',f32.2/1x,
      +'   mro = ',i32/1x,
      +'   mvi = ',i32/1x,
      +'   nvi = ',i32/1x,
      +'  smax = ',f32.2/1x,70('-'))
-      end     
+      end
 
-      subroutine driver 
+      subroutine driver
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Main driving subroutine for hyperspherical coordinate calculation
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -248,10 +248,10 @@ c
       eminr = eminr/rmlmda
       eminp = eminp/rmlmda
       emin = max(eminr,eminp)
-      nrg = 0 
+      nrg = 0
       do inrg = 1,nnrg
          if (enrg .gt. emin) then
-            nrg = nrg+1 
+            nrg = nrg+1
             if (nrg .le. nmax) then
                ered(nrg) = rmlmda*enrg
             endif
@@ -259,7 +259,7 @@ c
             write (6,61) enrg
   61        format(1x,'*** No open reaction channels at '
      +      ,f7.4,' eV. Energy skipped.')
-         endif 
+         endif
          enrg = enrg+dnrg
       enddo
       nnrg = nrg
@@ -268,7 +268,7 @@ c
   99     format(/1x,'Error: nnrg = ',i6,' > nmax = ',i6/1x,
      +              'Run halted in subroutine driver')
          stop
-      endif 
+      endif
       if (nnrg .eq. 0) return
 c
 c     coupled channel propagation
@@ -286,11 +286,11 @@ c
       subroutine basis (cvi,cro,eint,ilev,jlev,klev,nlev,nmax)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine constructs an asymptotic multiple-arrangement 
+c     -----------------------------------------------------------------
+c     This subroutine constructs an asymptotic multiple-arrangement
 c     rovibrational basis set containing all channels with j.le.jmax
 c     and eint.le.emax.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -316,10 +316,10 @@ c
       smin = 0.d0
       call qvib (smin,smax,mvi,wvi,xvi)
 c
-c     kinetic energy 
+c     kinetic energy
 c
       pi = acos(-1.d0)
-      tscale = pi/smax 
+      tscale = pi/smax
       do jvi = 1,nvi
          t(jvi) = (jvi*tscale)**2
       enddo
@@ -331,8 +331,8 @@ c
          weight = wvi(kvi)/smax
          onsa2 = weight/sa**2
          arg = tscale*sa
-         do jvi = 0,2*nvi 
-            cosine = cos(jvi*arg) 
+         do jvi = 0,2*nvi
+            cosine = cos(jvi*arg)
             s(jvi) = s(jvi)+cosine*onsa2
          enddo
       enddo
@@ -344,7 +344,7 @@ c
       na = 3-iabs(jpar)
       do ia = 1,na
 c
-c        reference potential 
+c        reference potential
 c
          do jvi = 0,2*nvi
             v(jvi) = 0.d0
@@ -355,8 +355,8 @@ c
             call potenl (100.d0,sa,0.d0,va,ia)
             va = weight*va
             arg = tscale*sa
-            do jvi = 0,2*nvi 
-               cosine = cos(jvi*arg) 
+            do jvi = 0,2*nvi
+               cosine = cos(jvi*arg)
                v(jvi) = v(jvi)+cosine*va
             enddo
          enddo
@@ -418,7 +418,7 @@ c
                            cro(3,n) = 0.d0
                         else if (k .eq. 0) then
                            cro(3,n) = -sqrt(2.d0*ctot*cent)
-                        else 
+                        else
                            ckp = k*(k+1)
                            cro(3,n) = -sqrt((ctot-ckp)*(cent-ckp))
                         endif
@@ -441,7 +441,7 @@ c
   99     format(/1x,'Error: n = ',i6,' > nmax = ',i6/1x,
      +              'Run halted in subroutine basis')
          stop
-      endif 
+      endif
 c
 c     channel ordering
 c
@@ -453,7 +453,7 @@ c
 c
 c     basis summary
 c
-      write (6,61) 
+      write (6,61)
   61  format(/1x,'BASIS:'/1x,70('-')/1x,
      + ' Channel       a       v       j       k       Energy (eV) '/1x,
      + 70('-'))
@@ -470,10 +470,10 @@ c
       subroutine basort (cvi,nvi,cro,eint,ilev,jlev,klev,nlev,n)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine sorts the channels in the input  
+c     -----------------------------------------------------------------
+c     This subroutine sorts the channels in the input
 c     basis set in order of increasing a,v,j,k.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension cvi(nvi,n),cro(3,n)
       dimension eint(n),ilev(n),jlev(n),klev(n),nlev(n)
@@ -500,7 +500,7 @@ c
                cswap = cro(i,j)
                cro(i,j) = cro(i,k)
                cro(i,k) = cswap
-            enddo 
+            enddo
             eswap = eint(j)
             eint(j) = eint(k)
             eint(k) = eswap
@@ -517,20 +517,20 @@ c
             nlev(j) = nlev(k)
             nlev(k) = nswap
          endif
-      enddo 
+      enddo
       return
       end
 
       subroutine bclean (cvi,nvi,n,smin,smax,mvi)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine removes the phase ambiguity from the vibrational
 c     expansion coefficient array cvi by ensuring that each vibrational
 c     eigenfunction is positive at its inner turning point.
-c     -----------------------------------------------------------------  
-c     
-      dimension cvi(nvi,n) 
+c     -----------------------------------------------------------------
+c
+      dimension cvi(nvi,n)
       dimension pvi(n,mvi)
 c
       ds = (smax-smin)/mvi
@@ -561,10 +561,10 @@ c
       subroutine solve (cvi,cro,ilev,jlev,klev,nlev,ered,nnrg)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine solves the hyperspherical coordinate
 c     coupled-channel equations between rho = rmin and rmax.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -586,7 +586,7 @@ c
 c
 c     loop over sectors
 c
-      npp = 0 
+      npp = 0
       drho = (rmax-rmin)/mtr
       rhop = rmin-0.5d0*drho
       do ktr = 1,mtr
@@ -640,10 +640,10 @@ c     enddo
       subroutine logder (drho,ered,nnrg,y,z,t,e,n,np,npp)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     Constant reference potential log derivative propagator, 
+c     -----------------------------------------------------------------
+c     Constant reference potential log derivative propagator,
 c     with nnrg energies propagated simultaneously.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     input arrays
 c
@@ -675,7 +675,7 @@ c
                   y2(i) = p/sin(p*h)
                else
                   y1(i) = 1.d0/h
-                  y2(i) = 1.d0/h 
+                  y2(i) = 1.d0/h
                endif
                y3(i) = y2(i)
                y4(i) = y1(i)
@@ -722,16 +722,16 @@ c
             enddo
          endif
          call putrec (y,n,nrg)
-      enddo 
+      enddo
       return
       end
 
       subroutine setrec (n,nnrg)
       implicit double precision (a-h,o-z)
 c
-c     -----------------------------------------------------------------   
+c     -----------------------------------------------------------------
 c     This subroutine opens a direct access scratch file on unit 10.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       diskmb = 8.0d-6*n*n*(nnrg+1)
       if (diskmb .lt. 1000.d0) then
@@ -755,9 +755,9 @@ c
       subroutine putrec (a,n,nrg)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine writes a matrix to the scratch file on unit 10.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension a(n,n)
       irec = nrg+1
@@ -768,9 +768,9 @@ c
       subroutine getrec (a,n,nrg)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine reads a matrix from the scratch file on unit 10. 
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
+c     This subroutine reads a matrix from the scratch file on unit 10.
+c     -----------------------------------------------------------------
 c
       dimension a(n,n)
       irec = nrg+1
@@ -778,12 +778,12 @@ c
       return
       end
 
-      subroutine endrec 
+      subroutine endrec
       implicit double precision (a-h,o-z)
 c
-c     -----------------------------------------------------------------  
+c     -----------------------------------------------------------------
 c     This subroutine closes and deletes the scratch file on unit 10.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       close (unit=10,status='delete')
       return
@@ -792,10 +792,10 @@ c
       subroutine sector (rho,cvi,cro,ilev,jlev,klev,nlev,h,s,c,e,np)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine sets up and solves the hyperspherical 
-c     coordinate surface eigenvalue problem at hyperradius rho. 
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
+c     This subroutine sets up and solves the hyperspherical
+c     coordinate surface eigenvalue problem at hyperradius rho.
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -822,7 +822,7 @@ c
 c
 c     surface eigenvalue problem
 c
-      call hcsevp (h,s,c,n,e,sigma,np) 
+      call hcsevp (h,s,c,n,e,sigma,np)
 c
 c     sector summary
 c
@@ -832,15 +832,19 @@ c
      +'  e(np) = ',f8.3,
      +'    np = ',i8)
       return
-      end 
+      end
 
       subroutine sbasis (rho,cvi,eint,ilev,jlev,klev,nlev,mode)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine constructs a multiple-arrangement 
+c     -----------------------------------------------------------------
+c     This subroutine constructs a multiple-arrangement
 c     hyperspherical basis set at hyperradius rho.
-c     ----------------------------------------------------------------- 
+c
+c     Args:
+c     mode - 0 for surface functions
+c            1 for conversion to asymptotic basis including J(J+1) terms.
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -865,12 +869,14 @@ c
       tmax = asin(min(1.d0,smax/rho))
       call qvib (tmin,tmax,mvi,wvi,xvi)
 c
-c     kinetic energy 
+c     kinetic energy
 c
       pi = acos(-1.d0)
-      tscale = pi/tmax 
+      tscale = pi/tmax
       do jvi = 1,nvi
          t(jvi) = ((jvi*tscale)**2-0.25d0)/rho**2
+         ! the extra factor of 0.25/rho**2 accounts for a diagonal constant
+         ! factor in the coupling matrix
       enddo
       do jvi = 0,2*nvi
          c(jvi) = 0.d0
@@ -882,9 +888,9 @@ c
          oncos2 = weight/cos(theta)**2
          onsin2 = weight/sin(theta)**2
          arg = tscale*theta
-         do jvi = 0,2*nvi 
-            cosine = cos(jvi*arg) 
-            c(jvi) = c(jvi)+cosine*oncos2
+         do jvi = 0,2*nvi
+            cosine = cos(jvi*arg)
+            c(jvi) = c(jvi)+cosine*oncos2 !only used when mode=1
             s(jvi) = s(jvi)+cosine*onsin2
          enddo
       enddo
@@ -894,7 +900,7 @@ c
       na = 3-iabs(jpar)
       do ia = 1,na
 c
-c        reference potential 
+c        reference potential
 c
          do jvi = 0,2*nvi
             v(jvi) = 0.d0
@@ -906,8 +912,8 @@ c
             call potenl (100.d0,sa,0.d0,va,ia)
             vtheta = weight*va
             arg = tscale*theta
-            do jvi = 0,2*nvi 
-               cosine = cos(jvi*arg) 
+            do jvi = 0,2*nvi
+               cosine = cos(jvi*arg)
                v(jvi) = v(jvi)+cosine*vtheta
             enddo
          enddo
@@ -929,14 +935,14 @@ c              vibrational eigenvalue problem
 c
                if (mode .eq. 0) then
 c
-c                 k-dependent vibrational functions 
+c                 k-dependent vibrational functions
 c                 in the interaction region
 c
-                  ctot = (jtot*(jtot+1)+j*(j+1)-2*k*k)/rho**2 
+                  ctot = (jtot*(jtot+1)+j*(j+1)-2*k*k)/rho**2
                else
 c
 c                 k-independent vibrational functions
-c                 in the asymptotic region 
+c                 in the asymptotic region
 c
                   ctot = 0.d0
                endif
@@ -976,12 +982,12 @@ c
       subroutine couple (rho,cvi,cro,eint,ilev,jlev,klev,h,s)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine constructs the Hamiltonian and overlap matrices
 c     h and s that are needed to solve the hyperspherical coordinate
 c     surface eigenvalue problem at the given value of rho.
-c     ----------------------------------------------------------------- 
-c     
+c     -----------------------------------------------------------------
+c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
@@ -1005,7 +1011,7 @@ c
          enddo
          s(j,j) = 1.d0
       enddo
-      na = 3-iabs(jpar) 
+      na = 3-iabs(jpar)
       do ia = 1,na
          call direct (rho,cvi,cro,ilev,jlev,klev,h,v,ia)
          do ib = 1,na
@@ -1045,22 +1051,22 @@ c
      +'   heps = ',f8.3,
      +'  seps = ',1p,e8.1)
       return
-      end 
+      end
 
       subroutine direct (rho,cvi,cro,ilev,jlev,klev,h,v,ia)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine fills in the direct matrix elements of h 
+c     -----------------------------------------------------------------
+c     This subroutine fills in the direct matrix elements of h
 c     within arrangement ia at hyperradius rho. Last modified 9/6/99.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
       common /ranges/ rmin,rmax,smax
       common /rotors/ jtot,ipar,jpar,jmax,kmin,kmax
-c      
+c
 c     input arrays
 c
       dimension cvi(nvi,n),cro(3,n)
@@ -1077,7 +1083,7 @@ c
 c
 c     arrangement indices
 c
-      call arrang (ilev,n,jpar,ia,nla,nha,na) 
+      call arrang (ilev,n,jpar,ia,nla,nha,na)
       if (na .lt. 1) return
 c
 c     quadrature rules
@@ -1135,7 +1141,7 @@ c
             enddo
          enddo
 c
-c        vibrational integrals and Coriolis coupling 
+c        vibrational integrals and Coriolis coupling
 c
          cent = wvi(kvi)/ra**2
          do lb = nla,nha
@@ -1170,18 +1176,18 @@ c
       subroutine exchng (rho,cvi,cro,ilev,jlev,klev,h,s,v,ia,ib)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine fills in the exchange matrix elements of h 
+c     -----------------------------------------------------------------
+c     This subroutine fills in the exchange matrix elements of h
 c     and s between arrangements ia and ib at hyperradius rho.
 c     Last modified 9/6/99.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
       common /ranges/ rmin,rmax,smax
       common /rotors/ jtot,ipar,jpar,jmax,kmin,kmax
-c      
+c
 c     input arrays
 c
       dimension cvi(nvi,n),cro(3,n)
@@ -1255,7 +1261,7 @@ c
                      enddo
                   enddo
                endif
-               iblock = iblock+1 
+               iblock = iblock+1
 c
 c              jacobian factor and interaction potential
 c
@@ -1274,7 +1280,7 @@ c
 c              rovibrational functions in arrangement ib
 c
                call prot (pro,jmax,kbmax,cosb)
-               call pvib (tmin,tb,tmax,cvi(1,nlb),nvi,nb,pvi(nlb),0)  
+               call pvib (tmin,tb,tmax,cvi(1,nlb),nvi,nb,pvi(nlb),0)
                do lb = nlb,nhb
                   jb = jlev(lb)
                   kb = klev(lb)
@@ -1353,13 +1359,13 @@ c
       return
       end
 
-      subroutine hcsevp (h,s,c,n,e,sigma,np) 
+      subroutine hcsevp (h,s,c,n,e,sigma,np)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine solves the surface eigenvalue problem 
+c     -----------------------------------------------------------------
+c     This subroutine solves the surface eigenvalue problem
 c     (H-E*S)*C=0 by canonical orthogonalisation of the basis.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       parameter (CUTOFF=1.d-04)
       dimension h(n,n),s(n,n),c(n,n)
@@ -1390,14 +1396,14 @@ c
             enddo
          enddo
          call symevp (s,n,n,sigma,ierr)
-         if (ierr .ne. 0) stop 'hcsevp 2' 
+         if (ierr .ne. 0) stop 'hcsevp 2'
          np = 0
          do j = 1,n
             sigma(j) = -sigma(j)
             if (sigma(j) .gt. CUTOFF) then
-               scale = 1.d0/sqrt(sigma(j))         
+               scale = 1.d0/sqrt(sigma(j))
                do i = 1,n
-                  s(i,j) = scale*s(i,j)      
+                  s(i,j) = scale*s(i,j)
                enddo
                np = j
             endif
@@ -1416,11 +1422,11 @@ c
       subroutine metric (rhop,cvp,npp,rho,cvi,np,ilev,jlev,klev,h,s,c)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine constructs the sector-to-sector transformation
 c     matrix t between sectors centred at hyperradii rhop and rho.
-c     Compare with subroutine sector. 
-c     ----------------------------------------------------------------- 
+c     Compare with subroutine sector.
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -1459,17 +1465,17 @@ c    +'  rhop = ',f8.3,
 c    +'    rho = ',f8.3,
 c    +'  seps = ',1p,e8.1)
       return
-      end 
+      end
 
       subroutine overlp (rhoa,cvia,rhob,cvib,ilev,jlev,klev,s)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine constructs the sector-to-sector overlap matrix
 c     s between sectors centred at hyperradii rhoa and rhob.
 c     Compare with subroutine couple.
-c     ----------------------------------------------------------------- 
-c     
+c     -----------------------------------------------------------------
+c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
@@ -1486,7 +1492,7 @@ c
             s(i,j) = 0.d0
          enddo
       enddo
-      na = 3-iabs(jpar) 
+      na = 3-iabs(jpar)
       do ia = 1,na
          call overdi (rhoa,cvia,rhob,cvib,ilev,jlev,klev,s,ia)
          do ib = 1,na
@@ -1501,23 +1507,23 @@ c
          call overex (rhoa,cvia,rhob,cvib,ilev,jlev,klev,s,ia,ib)
       endif
       return
-      end 
+      end
 
       subroutine overdi (rhoa,cva,rhob,cvb,ilev,jlev,klev,s,ia)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine fills in the matrix elements of the setor-
 c     to-sector overlap matrix s within arrangement ia.
 c     Compare with subroutine direct.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
       common /ranges/ rmin,rmax,smax
       common /rotors/ jtot,ipar,jpar,jmax,kmin,kmax
-c      
+c
 c     input arrays
 c
       dimension cva(nvi,n),cvb(nvi,n)
@@ -1568,18 +1574,18 @@ c
       subroutine overex (rhoa,cva,rhob,cvb,ilev,jlev,klev,s,ia,ib)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine fills in the matrix elements of the sector-
 c     to-sector overlap matrix s between arrangements ia and ib.
 c     Compare with subroutine exchng.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
       common /ranges/ rmin,rmax,smax
       common /rotors/ jtot,ipar,jpar,jmax,kmin,kmax
-c      
+c
 c     input arrays
 c
       dimension cva(nvi,n),cvb(nvi,n)
@@ -1647,7 +1653,7 @@ c
                endif
                iblock = iblock+1
 c
-c              jacobian factor 
+c              jacobian factor
 c
                weight = wro(kro)*wvi(kvi)
                sab = weight*sin(2.d0*ta)/sin(2.d0*tb)
@@ -1725,12 +1731,12 @@ c
       subroutine arrang (ilev,n,jpar,ia,nla,nha,na)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine calculates arrangement channel indices nla, nha
-c     and na such that the na = nha-nla+1 channels in arrangement ia 
+c     and na such that the na = nha-nla+1 channels in arrangement ia
 c     occur between nla and nha (assuming that the channels have been
 c     sorted in a,v,j order by subroutine basort).
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension ilev(n)
       dimension nlo(3),nhi(3)
@@ -1740,7 +1746,7 @@ c
          nhi(i) = 0
       enddo
       do j = 1,n
-         nlo(ilev(j)) = min(nlo(ilev(j)),j) 
+         nlo(ilev(j)) = min(nlo(ilev(j)),j)
          nhi(ilev(j)) = max(nhi(ilev(j)),j)
       enddo
       if (jpar .ne. 0) then
@@ -1756,11 +1762,11 @@ c
       subroutine coords (ta,cosa,ia,tb,cosb,ib,xab)
       implicit double precision (a-h,o-z)
 c
-c     -----------------------------------------------------------------  
-c     This subroutine calculates ib-arrangement from ia-arrangement 
-c     Delves hyperangular coordinates, along with the angle xab 
-c     between the body-frame z-axes of the two arrangements. 
-c     -----------------------------------------------------------------  
+c     -----------------------------------------------------------------
+c     This subroutine calculates ib-arrangement from ia-arrangement
+c     Delves hyperangular coordinates, along with the angle xab
+c     between the body-frame z-axes of the two arrangements.
+c     -----------------------------------------------------------------
 c
       double precision mass,mtot,mred
       common /masses/ mass(3),mtot,mred
@@ -1788,7 +1794,7 @@ c
          cxab = max(cxab,-1.d0)
          cxab = min(cxab,+1.d0)
          xab = acos(cxab)
-         if (ia-ib.eq.1 .or. ib-ia.eq.2) xab = -xab 
+         if (ia-ib.eq.1 .or. ib-ia.eq.2) xab = -xab
       endif
       return
       end
@@ -1797,9 +1803,9 @@ c
       implicit double precision (a-h,o-z)
 c
 c     -----------------------------------------------------------------
-c     This subroutine returns the potential energy surface va as a 
+c     This subroutine returns the potential energy surface va as a
 c     function of mass-scaled Jacobi coordinates in arrangement ia.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension r(3)
       double precision mass,mtot,mred
@@ -1813,7 +1819,7 @@ c
       cap = 2.0d0*cosa*rap
       sap = scale(ia)*sa
       sbp = mass(ib)/(mass(ib)+mass(ic))*sap
-      scp = mass(ic)/(mass(ib)+mass(ic))*sap 
+      scp = mass(ic)/(mass(ib)+mass(ic))*sap
       r(ia) = sap
       r(ib) = sqrt(rap**2-cap*sbp+sbp**2)
       r(ic) = sqrt(rap**2+cap*scp+scp**2)
@@ -1825,11 +1831,11 @@ c
       subroutine pvib (a,x,b,c,n,m,p,mode)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine calculates m normalised vibrational 
-c     eigenfunctions in a < x < b (if mode = 0), or their  
+c     -----------------------------------------------------------------
+c     This subroutine calculates m normalised vibrational
+c     eigenfunctions in a < x < b (if mode = 0), or their
 c     first derivatives with respect to x (if mode = 1).
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension c(n,m),p(m)
       dimension q(0:n)
@@ -1848,7 +1854,7 @@ c
          do j = 2,n
             q(j) = recur*q(j-1)-q(j-2)
          enddo
-      else 
+      else
          scale = shift*scale
          q(0) = scale
          q(1) = scale*cosy
@@ -1864,14 +1870,14 @@ c     contracted vibrational eigenfunctions
 c
       call dgemv ('t',n,m,1.d0,c,n,q(1),1,0.d0,p,1)
       return
-      end 
+      end
 
       subroutine pvibv (a,x,b,c,n,m,p,l,mode)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     Vector version of subroutine pvib for l different values of x.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension x(l),c(n,m),p(l,m)
       dimension q(l,0:n)
@@ -1891,7 +1897,7 @@ c
                q(k,j) = recur*q(k,j-1)-q(k,j-2)
             enddo
          enddo
-      else 
+      else
          scale = shift*scale
          do k = 1,l
             y = shift*(x(k)-a)
@@ -1912,16 +1918,16 @@ c     contracted vibrational eigenfunctions
 c
       call dgemm ('n','n',l,m,n,1.d0,q(1,1),l,c,n,0.d0,p,l)
       return
-      end 
+      end
 
       subroutine qvib (a,b,m,w,x)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine constructs an m point particle-in-a-box
 c     (midpoint) quadrature rule in the interval a < x < b.
-c     ----------------------------------------------------------------- 
-c     
+c     -----------------------------------------------------------------
+c
       dimension w(m),x(m)
 c
       dx = (b-a)/m
@@ -1935,18 +1941,18 @@ c
       subroutine prot (p,jmax,kmax,x)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c     This subroutine uses the algorithm in Section 6.8 of Numerical
-c     Recipes to calculate an array of normalised associated Legendre 
+c     Recipes to calculate an array of normalised associated Legendre
 c     polynomials P(j,k,x) = sqrt(2*pi)*Y(j,k;acos(x),0).
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       parameter (jtop = 100)
-      dimension p(0:jmax,0:kmax) 
+      dimension p(0:jmax,0:kmax)
       dimension a(0:jtop,0:jtop),b(0:jtop,0:jtop),c(0:jtop,0:jtop)
       save init,a,b,c
       data init /0/
-c      
+c
       if (init .eq. 0) then
          do j = 0,jtop
             do k = 0,j-2
@@ -1960,7 +1966,7 @@ c
                c(j,k) = sqrt(fac)
             enddo
          enddo
-         init = 1 
+         init = 1
       endif
 c
       if (jmax .gt. jtop) stop 'prot 0'
@@ -2000,10 +2006,10 @@ c
       subroutine qrot (m,w,x)
       implicit double precision (a-h,o-z)
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine constructs an m point Gauss-Legendre 
+c     -----------------------------------------------------------------
+c     This subroutine constructs an m point Gauss-Legendre
 c     quadrature rule in the interval -1 < x < 1.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension w(m),x(m)
       dimension a2(m),a3(m)
@@ -2039,10 +2045,10 @@ c
       implicit double precision (a-h,o-z)
       double precision llev
 c
-c     -----------------------------------------------------------------  
+c     -----------------------------------------------------------------
 c     This subroutine uses the asymptotic log derivative matrix
 c     at each energy to calculate and output the scattering matrix.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -2109,12 +2115,12 @@ c
                   endif
                enddo
             endif
-         enddo 
+         enddo
 c
 c        OUTPUT:
-c        This outputs S-matrix elements and transition probabilities 
+c        This outputs S-matrix elements and transition probabilities
 c        from all open A+BC(v,j) reactant channels with v.le.nout
-c        and j.le.jout to all open A+BC, B+CA, C+AB product channels: 
+c        and j.le.jout to all open A+BC, B+CA, C+AB product channels:
 c
          unit = 0.d0
          cols = 0.d0
@@ -2137,12 +2143,12 @@ c
                jf = jlev(j)
                kf = klev(j)
                nf = nlev(j)
-               tp = x(i,j)**2+y(i,j)**2 
+               tp = x(i,j)**2+y(i,j)**2
                unit = unit+tp
                if (jf .lt. jp) then
                   write (6,63) ii,ni,ji,ki,ip,np,sumj
                   sumj = 0.d0
-               endif 
+               endif
                ip = if
                np = nf
                jp = jf
@@ -2150,12 +2156,12 @@ c
                write (6,62) ii,ni,ji,ki,if,nf,jf,kf,x(i,j),y(i,j),tp
    1        continue
             write (6,63) ii,ni,ji,ki,ip,np,sumj
-   2     continue 
+   2     continue
          if (cols .gt. 0.d0) then
             unit = unit/cols
             write (6,64) unit
          endif
-   3  continue 
+   3  continue
 c
 c     And this outputs cumulative reaction probabilities:
 c
@@ -2197,14 +2203,14 @@ c
       implicit double precision (a-h,o-z)
       double precision llev
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine transforms the symmetric matrix x from a 
-c     (possibly truncated) BF basis set to a (possibly truncated) 
+c     -----------------------------------------------------------------
+c     This subroutine transforms the symmetric matrix x from a
+c     (possibly truncated) BF basis set to a (possibly truncated)
 c     SF basis set if mode = +1, or vice versa if mode = -1.
 c     The (possibly fractional) orbital angular momentum quantum
-c     numbers of the SF basis are returned in llev. 
-c     ----------------------------------------------------------------- 
-c     
+c     numbers of the SF basis are returned in llev.
+c     -----------------------------------------------------------------
+c
 c     common blocks
 c
       common /arrays/ mro,mvi,nvi,n
@@ -2255,7 +2261,7 @@ c
 c        transform the present block of the matrix x, applying
 c        the inverse transformation if mode = -1
 c
-         if (ndo .gt. 1) then 
+         if (ndo .gt. 1) then
             if (mode .lt. 0) then
                do j = nlo+1,nhi
                   do i = nlo,j-1
@@ -2294,20 +2300,20 @@ c
          nlo = nhi+1
       if (nlo .le. n) go to 1
       return
-      end 
+      end
 
       subroutine bessel (x,y,z,cvr,cvi,eint,
      +                   ilev,jlev,klev,llev,nlev,ered)
       implicit double precision (a-h,o-z)
       double precision llev
 c
-c     -----------------------------------------------------------------  
+c     -----------------------------------------------------------------
 c     This subroutine forms the asymptotic solution and derivative
 c     matrices a,b,c, and d needed for matching the asymptotic Delves
 c     coordinate log derivative matrix y onto a reactance matrix k,
 c     as in eqs. (116) to (121) of Pack and Parker, and then proceeds
 c     to calculate the reactance matrix in the array x.
-c     -----------------------------------------------------------------  
+c     -----------------------------------------------------------------
 c
 c     common blocks
 c
@@ -2374,7 +2380,7 @@ c
             enddo
 c
 c           Jacobi vibrational functions
-c        
+c
             call pvib (smin,sa,smax,cvi,nvi,n,fvi,0)
             call pvib (smin,sa,smax,cvi,nvi,n,gvi,1)
 c
@@ -2388,9 +2394,9 @@ c
                   arg = p*ra
                   call rbesjy (ell,arg,cj,dj,ej,cy,dy,ey)
 c
-c                 exponential scaling of j and y  
+c                 exponential scaling of j and y
 c                 (for stability near channel thresholds)
-c 
+c
                   if (kvi .eq. 1) then
                      ecol(i) = ej
                      scol(i) = exp(ej)
@@ -2403,7 +2409,7 @@ c
                      sy = exp(ey-erow(i))
                      cy = sy*cy
                      dy = sy*dy
-                  endif 
+                  endif
                   rtp = sqrt(p)
                   atr = cj/rtp
                   btr = cy/rtp
@@ -2414,7 +2420,7 @@ c
                   arg = p*ra
                   call rbessk (ell,arg,ck,dk,ek)
 c
-c                 exponential scaling of k 
+c                 exponential scaling of k
 c                 (for the same reason)
 c
                   if (kvi .eq. 1) then
@@ -2503,11 +2509,11 @@ c
       implicit double precision (a-h,o-z)
       double precision llev
 c
-c     ----------------------------------------------------------------- 
-c     This subroutine uses the reactance matrix k returned by 
-c     subroutine bessel to calculate the scattering matrix s, the 
+c     -----------------------------------------------------------------
+c     This subroutine uses the reactance matrix k returned by
+c     subroutine bessel to calculate the scattering matrix s, the
 c     real and imaginary parts of which are returned in x and y.
-c     ----------------------------------------------------------------- 
+c     -----------------------------------------------------------------
 c
       dimension x(n,n),y(n,n),z(n,n)
       dimension eint(n),llev(n),t(n)
