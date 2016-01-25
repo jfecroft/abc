@@ -15,7 +15,7 @@ time ./abc.x < fhd.d > fhd.new
 compare fhd.new fhd.out
 
 time ./abc.x < clhd.d > clhd.new
-compare lhd.new clhd.out
+compare clhd.new clhd.out
 
 time ./abc.x < hd2.d > hd2.new
 compare hd2.new hd2.out
