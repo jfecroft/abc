@@ -1366,7 +1366,7 @@ c     -----------------------------------------------------------------
 c     This subroutine solves the surface eigenvalue problem
 c     (H-E*S)*C=0 by canonical orthogonalisation of the basis.
 c
-c     For details see Szabo and Ostlund 3.4.5 Orhooganalisation of the basis
+c     For details see Szabo and Ostlund 3.4.5 Orthogonalization of the basis
 c     -----------------------------------------------------------------
 c
       parameter (CUTOFF=1.d-04)
