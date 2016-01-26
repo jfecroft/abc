@@ -842,8 +842,9 @@ c     This subroutine constructs a multiple-arrangement
 c     hyperspherical basis set at hyperradius rho.
 c
 c     Args:
-c     mode - 0 for surface functions
-c            1 for conversion to asymptotic basis including J(J+1) terms.
+c     mode - 0 for short range k dependant surface functions including
+c                J(J+1) terms.
+c            1 k independant asymptotic basis
 c     -----------------------------------------------------------------
 c
 c     common blocks
@@ -890,7 +891,7 @@ c
          arg = tscale*theta
          do jvi = 0,2*nvi
             cosine = cos(jvi*arg)
-            c(jvi) = c(jvi)+cosine*oncos2 !only used when mode=1
+            c(jvi) = c(jvi)+cosine*oncos2 !only used when mode=0
             s(jvi) = s(jvi)+cosine*onsin2
          enddo
       enddo
@@ -1366,7 +1367,8 @@ c     -----------------------------------------------------------------
 c     This subroutine solves the surface eigenvalue problem
 c     (H-E*S)*C=0 by canonical orthogonalisation of the basis.
 c
-c     For details see Szabo and Ostlund 3.4.5 Orthogonalization of the basis
+c     For details see Szabo and Ostlund 3.4.5 Orthogonalization of the
+c     basis
 c     -----------------------------------------------------------------
 c
       parameter (CUTOFF=1.d-04)
