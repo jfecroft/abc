@@ -14,7 +14,7 @@
 \date{\today}
 
 \begin{abstract}
-Reactive scattering notes.
+Reactive scattering notes. Work in Progress.
 \end{abstract}
 
 \pacs{}
@@ -65,9 +65,18 @@ Delves coordinates\cite{Delves:1958,Delves:1960}
 \end{align}
 the hyperradius $\rho$ is independent of arrangement channel $\tau$.
 
-\section{Asymptotic Basis in jacobi coordinates}
-Constructs an asymptotic multiple-arrangement ro-vibrational basis set.
-Asymptotically $\lim\limits_{S\to\infty}$
+\section{Asymptotic Basis in SF Jacobi coordinates}
+The asymptotic matrix of the hamiltonian can be written
+\begin{align}\label{eqn:delves}
+	\frac{\chi_{\tau,v,j}(s_\tau)}{s_\tau}\ket{jM_j}\ket{lM_l}
+\end{align}
+where the ro-vibrational basis functions are the radial eigenfunctions of the
+diatomic molecule
+\begin{align}\label{eqn:delves}
+\left[-\frac{1}{2\mu}\frac{\partial^2}{\partial s_\tau^2} + \frac{j(j+1)}{2\mu s_\tau^2} + V(s_\tau)\right]\chi_{\tau,v,j}= \epsilon_{\tau,v,j}\chi_{\tau,v,j}
+\end{align}
+in the abc code this is constructed from a primitive basis of solutions to the
+infinitely deep square potential well [JFEC:\@ add details].
 
 \section{Sbasis}
 \begin{acknowledgments}
