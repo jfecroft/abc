@@ -7,14 +7,14 @@
 \usepackage{braket}
 %\usepackage{subfigure}
 \begin{document}
-\title{Notes on abc scattering code.}
+\title{Reactive Scattering Notes.}
 \author{James F. E. Croft}
-\affiliation{}
+\affiliation{\noaffiliation}
 
 \date{\today}
 
 \begin{abstract}
-Notes on the abc scattering code mainly for my own reference.
+Reactive scattering notes.
 \end{abstract}
 
 \pacs{}
@@ -22,10 +22,57 @@ Notes on the abc scattering code mainly for my own reference.
 \maketitle
 %
 \section{Introduction}
-\section{Basis}
+\section{Jacobi Coordinates}
+A, B and C with mass $m_\tau$ ($\tau$ = A,B,C) and \textbf{x}$_\tau$ being the
+column vectors of their coordinates relative to an origin fixed in the
+laboratory. After the separation of the center of mass motion, the Jacobi
+coordinates for relative motion are
+\begin{align}\label{eqn:jac}
+	\mathbf{R}_\tau = \mathbf{x}_
+	\tau-\frac{m_{\tau+1} \mathbf{x}_{\tau+1}+m_{\tau+2} \mathbf{x}_{\tau+2}}{m_{\tau+1} + m_{\tau+2}} \\
+	\mathbf{r}_\tau = \mathbf{x}_{\tau+2} - \mathbf{x}_{\tau+1}
+\end{align}
+where $\tau$, $\tau+1$ and $\tau+2$ are any cyclic permutation of A,B and C. The
+corresponding mass-scaled Jacobi coordinates are then
+\begin{align}\label{eqn:ms_jac}
+	\mathbf{S}_\tau = d_\tau\mathbf{R}_\tau \\
+	\mathbf{s}_\tau = d^{-1}_\tau\mathbf{r}_\tau
+\end{align}
+where
+\begin{align}\label{eqn:ms_jac}
+d_\tau = \left[\frac{m_\tau}{\mu}\left(1-\frac{m_\tau}{M}\right)\right] \\
+M = m_A + m_B + m_C
+\end{align}
+The advantage of using mass scaled Jacobi coordinates is the kinetic energy
+operator has the simple form
+\begin{align}\label{eqn:ms_jac}
+	T = -\frac{\hbar}{2\mu}(\nabla^2_{\mathbf{S}_\tau} + \nabla^2_{\mathbf{s}_\tau})
+\end{align}
+in body fixed coordinates
+\begin{align}\label{eqn:ms_jac}
+	T = -\frac{\hbar}{2\mu}\left[\frac{1}{S_\tau}\frac{\partial^2}{\partial S^2_\tau}S_\tau + \frac{1}{s_\tau}\frac{\partial^2}{\partial s^2_\tau}s_\tau\right] +
+	\frac{\mathbf{L}^2_\tau}{2\mu S^2_\tau} + \frac{\mathbf{J}^2_\tau}{2\mu S^2_\tau}
+\end{align}
+where $\mathbf{J_\tau}$ is the angular momentum of the diatom  and
+$\mathbf{L_\tau}$ the orbital angular momentum of the atom $\tau$ around the
+diatom. The total angular momentum $\mathbf{J}=\mathbf{J_\tau}+\mathbf{L_\tau}$
+
+\section{Delves Hyperspherical Coordinates}
+Delves coordinates\cite{Delves:1958,Delves:1960}
+\begin{align}\label{eqn:delves}
+	\rho = (\mathbf{S}^2_\tau + \mathbf{s}^2_\tau ) \\
+	\theta_\tau = \tan^{-1}({\frac{s_\tau}{S_\tau}})
+\end{align}
+the hyperradius $\rho$ is independent of arrangement channel $\tau$.
+
+\section{Asymptotic Basis in jacobi coordinates}
+Constructs an asymptotic multiple-arrangement ro-vibrational basis set.
+Asymptotically $\lim\limits_{S\to\infty}$
+
+\section{Sbasis}
 \begin{acknowledgments}
 \end{acknowledgments}
 
-\bibliography{jmh_all,jfec_all}
+\bibliography{notes}
 
 \end{document}
