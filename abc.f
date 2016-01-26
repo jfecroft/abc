@@ -1517,7 +1517,7 @@ c
       implicit double precision (a-h,o-z)
 c
 c     -----------------------------------------------------------------
-c     This subroutine fills in the matrix elements of the setor-
+c     This subroutine fills in the matrix elements of the sector-
 c     to-sector overlap matrix s within arrangement ia.
 c     Compare with subroutine direct.
 c     -----------------------------------------------------------------
