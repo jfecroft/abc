@@ -48,6 +48,22 @@ operator has the simple form
 \begin{align}\label{eqn:ms_jac}
 	T = -\frac{\hbar}{2\mu}(\nabla^2_{\mathbf{S}_\tau} + \nabla^2_{\mathbf{s}_\tau})
 \end{align}
+The hamiltonian for a atom-diatom molecule colliding system can therfore be written in
+atomic units as
+\begin{align}\label{eqn:ms_jac}
+	H = \frac{1}{2\mu S_\tau}\frac{\partial^2}{\partial S_\tau^2}
+	+ \frac{\mathbf{l}_\tau^2}{2 \mu S_\tau^2}
+	  + V(S_\tau, s_\tau, \gamma_\tau)
+	  - V_\tau(s_\tau)
+	  + H_{as}
+\end{align}
+where $H_{as}$ is given by
+\begin{align}\label{eqn:as_ham}
+	H_{as} = -\frac{1}{2\mu s_\tau}\frac{\partial^2}{\partial s_\tau^2}s_\tau
+	       + \frac{\mathbf{j}^2}{2 \mu s_\tau^2}
+               + V_\tau(s_\tau)
+\end{align}
+
 in body fixed coordinates
 \begin{align}\label{eqn:ms_jac}
 	T = -\frac{\hbar}{2\mu}\left[\frac{1}{S_\tau}\frac{\partial^2}{\partial S^2_\tau}S_\tau + \frac{1}{s_\tau}\frac{\partial^2}{\partial s^2_\tau}s_\tau\right] +
@@ -67,16 +83,20 @@ the hyperradius $\rho$ is independent of arrangement channel $\tau$.
 
 \section{Asymptotic Basis in SF Jacobi coordinates}
 The asymptotic matrix of the hamiltonian can be written
-\begin{align}\label{eqn:delves}
+\begin{align}\label{eqn:abasis_sf}
 	\frac{\chi_{\tau,v,j}(s_\tau)}{s_\tau}\ket{jM_j}\ket{lM_l}
 \end{align}
 where the ro-vibrational basis functions are the radial eigenfunctions of the
 diatomic molecule
 \begin{align}\label{eqn:delves}
-\left[-\frac{1}{2\mu}\frac{\partial^2}{\partial s_\tau^2} + \frac{j(j+1)}{2\mu s_\tau^2} + V(s_\tau)\right]\chi_{\tau,v,j}= \epsilon_{\tau,v,j}\chi_{\tau,v,j}
+\left[-\frac{1}{2\mu}\frac{\partial^2}{\partial s_\tau^2} + \frac{j^2}{2\mu s_\tau^2} + V(s_\tau)\right]\chi_{\tau,v,j}= \epsilon_{\tau,v,j}\chi_{\tau,v,j}
 \end{align}
-in the abc code this is constructed from a primitive basis of solutions to the
-infinitely deep square potential well [JFEC:\@ add details].
+in the abc code this is constructed, for each $\tau$, from a primitive basis of solutions to the
+infinitely deep square potential well with quntum number $n$.
+\begin{align}\label{eqn:delves}
+	\bra{n'}\bra{jm_j}H_{as}\ket{jm_j}\ket{n}
+\end{align}
+
 
 \section{Short range basis in BF Delves coordiantes}
 \begin{align}\label{eqn:delves}
