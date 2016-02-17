@@ -82,20 +82,33 @@ Delves coordinates\cite{Delves:1958,Delves:1960}
 the hyperradius $\rho$ is independent of arrangement channel $\tau$.
 
 \section{Asymptotic Basis in SF Jacobi coordinates}
-The asymptotic matrix of the hamiltonian can be written
-\begin{align}\label{eqn:abasis_sf}
-	\frac{\chi_{\tau,v,j}(s_\tau)}{s_\tau}\ket{jM_j}\ket{lM_l}
-\end{align}
-where the ro-vibrational basis functions are the radial eigenfunctions of the
-diatomic molecule
+The ro-vibrational basis functions are the radial eigenfunctions of the
+asypototic hamiltonian  EQ.\ref{eqn:as_ham} diatomic molecule
 \begin{align}\label{eqn:delves}
-\left[-\frac{1}{2\mu}\frac{\partial^2}{\partial s_\tau^2} + \frac{j^2}{2\mu s_\tau^2} + V(s_\tau)\right]\chi_{\tau,v,j}= \epsilon_{\tau,v,j}\chi_{\tau,v,j}
+	\left[-\frac{1}{2\mu}\frac{\partial^2}{\partial s_\tau^2} + \frac{j(j+1)}{2\mu s_\tau^2} + V(s_\tau)\right]\chi_{\tau,v,j}= \epsilon_{\tau,v,j}\chi_{\tau,v,j}
 \end{align}
-in the abc code this is constructed, for each $\tau$, from a primitive basis of solutions to the
+in the abc code this is constructed, for each $\tau$, in Basis from a primitive basis of solutions to the
 infinitely deep square potential well with quntum number $n$.
 \begin{align}\label{eqn:delves}
 	\bra{n'}\bra{jm_j}H_{as}\ket{jm_j}\ket{n}
 \end{align}
+
+\section{Short range Basis in BF Delves coordinates}
+The ro-vibrational basis functions are the radial eigenfunctions of the
+hamiltonian.
+\begin{align}\label{eqn:delves}
+	H = -\frac{1}{2\mu}\frac{\partial^2}{\partial \theta^2_\tau}
+	+ \frac{j(j+1)}{2\mu \sin^2{\theta_\tau}}
+	+ \frac{J(J+1)+j(j+1)-2k^2}{\cos^2{\theta_\tau}}
+	    + V(\sin{\theta_\tau})
+\end{align}
+in the abc code this is constructed, for each $\tau$, in Sbasis from a primitive basis of solutions to the
+infinitely deep square potential well with quntum number $n$. The term $J(J+1)+j(j+1)-2k^2$
+enters because of the truncated helicity basis set in k\cite{Skouteris:2000}.
+
+in the abc code this is constructed, for each $\tau$, from a primitive basis of solutions to the
+infinitely deep square potential well with quntum number $n$.
+pr
 
 
 \section{Short range basis in BF Delves coordiantes}
